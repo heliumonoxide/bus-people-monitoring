@@ -3,22 +3,23 @@
 import React from 'react';
 import LineChart from '../PeopleGraph/PeopleGraph';
 import HighestCount from '../HighestCount/HighestCount';
-import ImageViewer from '../NewestImageComponent/NewestImageComponent';
+import ImageViewerBus from '../busCamera/busCamera'
+import ImageViewerPeople from '../peopleCamera/peopleCamera'
 import LogTable from '../LogTable/LogTable';
 import Decision from '../Decision/Decision';
-
 
 const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b bg-blue-100 to-white bg-blue-50 flex flex-col">
       <header className="bg-blue-400 p-4 shadow-md text-white">
-        <h1 className="text-2xl font-bold text-center">🚌 Bus and People Monitoring in Halte FTUI 🚌</h1>
+        <h1 className="text-2xl font-bold text-center">🚌 Bus and People Monitoring 🚌</h1>
         <p className="text-lg text-white/80 text-center">Kata katanya kak hari ini. Pahamm!!</p>
       </header>
 
-      <main className="flex flex-col p-10">
+      <main className="flex flex-col p-10"> 
         <div className="flex flex-wrap mx-10 gap-5 flex-row justify-center">
-          <ImageViewer />
+          <ImageViewerPeople />
+          <ImageViewerBus />
           <div className='flex flex-col gap-5'>
             <HighestCount />
             <Decision />

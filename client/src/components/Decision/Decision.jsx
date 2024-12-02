@@ -44,7 +44,7 @@ const Decision = () => {
         <div className="flex items-center justify-center">
             <div className="max-w-sm w-full bg-white shadow-lg rounded-lg overflow-hidden">
                 <div className="bg-blue-400 text-white py-4 px-6 text-center">
-                    <h2 className="text-xl font-bold">Latest Condition</h2>
+                    <h2 className="text-xl font-bold">People in Bus Stop</h2>
                 </div>
                 <div className="px-6 py-3 flex flex-col items-center">
                     {error ? (
