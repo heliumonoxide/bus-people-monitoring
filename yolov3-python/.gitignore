@@ -1,2 +1,5 @@
 venv/
+env/
+*.tar
 *.weights
+__pycache__/
