@@ -12,17 +12,24 @@ const LogTable = () => {
         if (!response.ok) throw new Error("Failed to fetch data");
         const data = await response.json();
 
+        // Format the data, converting timestamps to local time
         const formattedData = data.map((doc) => {
           const utcDate = new Date(doc.metadata.timeCreated); // Convert Firestore timestamp
-          const localDate = new Date(utcDate.setHours(utcDate.getHours() )); // Adjust to UTC+7
+          const localDate = new Date(utcDate.setHours(utcDate.getHours())); // Adjust to UTC+7
+
           return {
             id: doc.metadata.generation, // Adjust based on your data
             timestamp: localDate.toString(),
             imageUrl: doc.imageUrl, // Assuming image URL is available
+            createdAt: utcDate // Store original UTC timestamp for sorting
           };
         });
 
-        setData(formattedData);
+        // Sort the data based on the `createdAt` field (newest first)
+        const sortedData = formattedData.sort((a, b) => b.createdAt - a.createdAt);
+
+        // Set sorted data to state
+        setData(sortedData);
       } catch (err) {
         setError(err.message);
       }
@@ -55,7 +62,9 @@ const LogTable = () => {
                         href={row.imageUrl}
                         alt="Uploaded"
                         className="h-16 w-16 object-cover rounded-full hover:text-blue-500"
-                      > Image Link</a>
+                      >
+                        Image Link
+                      </a>
                     ) : (
                       "No Image"
                     )}

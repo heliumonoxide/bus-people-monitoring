@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 
-const ImageViewer = () => {
+const ImageViewerPeople = () => {
     const [imageUrl, setImageUrl] = useState('');
     const [timeAdded, setTimeAdded] = useState('');
     const [error, setError] = useState('');
@@ -14,7 +14,7 @@ const ImageViewer = () => {
                     throw new Error('Error fetching the newest image');
                 }
                 const data = await response.json();
-                console.log(data);
+                // console.log(data);
                 const createdDate = new Date(data.metadata.timeCreated);
                 const formattedDate = createdDate.toLocaleDateString();
                 const formattedTime = createdDate.toLocaleTimeString();
@@ -32,7 +32,7 @@ const ImageViewer = () => {
     return (
         <div className="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden">
             <div className="px-6 pt-4 pb-1 text-center">
-                <h2 className="text-xl text-blue-900 font-bold mb-2">Newest Uploaded Image</h2>
+                <h2 className="text-xl text-blue-900 font-bold mb-2">(People) Camera</h2>
             </div>
             <div className="px-6 pt-2 pb-4">
                 {error ? (
@@ -49,7 +49,7 @@ const ImageViewer = () => {
                 {error ? (
                     <p className="text-red-500 text-center">{error}</p>
                 ) : (timeAdded) ? (
-                    <p className="text-violet-900">{timeAdded} </p>
+                    <p className="text-blue-900">{timeAdded} </p>
                 ) : (
                     <p className="text-center">Loading...</p>
                 )}
@@ -58,4 +58,4 @@ const ImageViewer = () => {
     );
 };
 
-export default ImageViewer;
+export default ImageViewerPeople;
