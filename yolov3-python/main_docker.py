@@ -2,20 +2,20 @@ import cv2
 import numpy as np
 import time
 from datetime import datetime as dt, timezone
-from services.firebase_services import Connection
+from services.firebase_docker_services import Connection_Docker
 import os
-from watchdog.observers import Observer
+from watchdog.observers.polling import PollingObserver
 from watchdog.events import FileSystemEventHandler
 
 # Configurations
 whT = 320
 confThreshold = 0.5
 nmsThreshold = 0.5
-classesfile = 'coco.names.txt'
-modelConfig = 'yolov3.cfg.cfg'
-modelWeights = 'yolov3.weights'
-image_folder_path = "images/"  # Directory where new images will be added
-processed_folder_path = "result/"  # Directory where processed images will be saved
+classesfile = '/app/coco.names.txt'
+modelConfig = '/app/yolov3.cfg.cfg'
+modelWeights = '/app/yolov3.weights'
+image_folder_path = "/app/images/"  # Directory where new images will be added
+processed_folder_path = "/app/result"  # Directory where processed images will be saved
 
 # Load class names
 classNames = []
@@ -87,8 +87,8 @@ def findObject(outputs, im):
     
     return data_violations_perday
 
-# Firebase Connection
-firebase = Connection()
+# Firebase Connection_Docker
+firebase = Connection_Docker()
 firebase.initialize_sdk()
 
 # Watchdog event handler to process new images
@@ -142,7 +142,7 @@ class ImageHandler(FileSystemEventHandler):
 
 # Initialize and start the watchdog observer
 event_handler = ImageHandler()
-observer = Observer()
+observer = PollingObserver()
 observer.schedule(event_handler, image_folder_path, recursive=False)
 observer.start()
 
