@@ -19,10 +19,12 @@ COPY . /app
 RUN pip install --default-timeout=10000 -r requirements.txt
 
 # Specify the command to run your application
-# CMD ["python", "main_docker.py"]
 CMD ["python", "-u", "main_docker.py"]
 
 # docker build -t yolov3-python-v3 .
 # docker run --privileged -d -v D:\Bryan_Workspace\bus-people-monitoring\yolov3-python\images:/app/images yolov3-python-v3
 # docker logs -f 1cf8f4728055
 # docker save -o yolov3-python-v4.tar yolov3-python-v4
+
+# docker load -i yolov3-python-v4.tar
+# docker run -d -v /home/alfath/esp_images:/app/images yolov3-python-v7-final

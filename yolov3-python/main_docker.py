@@ -98,6 +98,7 @@ class ImageHandler(FileSystemEventHandler):
             return
         if event.src_path.endswith(('.jpg', '.png')):
             print(f"New image detected: {event.src_path}")
+            time.sleep(20) # to wait until file/picture transfer is complete. 
             self.process_image(event.src_path)
 
     def process_image(self, image_path):
