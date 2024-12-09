@@ -6,7 +6,7 @@ import HighestCount from '../HighestCount/HighestCount';
 import ImageViewerBus from '../busCamera/busCamera'
 import ImageViewerPeople from '../peopleCamera/peopleCamera'
 import LogTableBus from '../LogTableBus/LogTableBus';
-import LogTablePeople from '../LogTablePeople/logTablePeople';
+import LogTablePeople from "../LogTablePeoples/LogTablePeoples";
 import Decision from '../Decision/Decision';
 import LogSumPeople from '../LogSumPeople/LogSumPeople'
 
