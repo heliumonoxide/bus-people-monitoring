@@ -23,4 +23,10 @@ router.get('/bus-timestamps', firebaseController.getNewestBusTimestamps);
 // GET route to retrieve bus images results
 router.get('/bus-timestamps-images', firebaseController.getTodayImages);
 
+// GET route to retrieve prediction images result
+router.get('/prediction-images', firebaseController.getTodayImagesESP);
+
+// GET route to retrieve sum people for today
+router.get('/prediction-today', firebaseController.getTodaySum);
+
 module.exports = router;
