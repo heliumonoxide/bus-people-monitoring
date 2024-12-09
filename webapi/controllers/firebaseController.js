@@ -198,3 +198,79 @@ exports.getTodayImages = async (req, res) => {
         res.status(500).json({ message: 'Error retrieving today\'s images' });
     }
 };
+
+exports.getTodayImagesESP = async (req, res) => {
+    try {
+        const today = new Date();
+        const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+
+        // Fetch all files from the result_predict folder
+        const [files] = await bucket.getFiles({ prefix: 'result_predict/' });
+
+        if (files.length === 0) {
+            return res.status(404).json({ message: 'No images found in result_predict folder' });
+        }
+
+        // Filter files that were added or modified today
+        const todayFiles = files.filter(file => {
+            const updatedTime = new Date(file.metadata.timeCreated);
+            return updatedTime >= startOfDay && updatedTime < endOfDay;
+        });
+
+        if (todayFiles.length === 0) {
+            return res.status(404).json({ message: 'No images added or modified today' });
+        }
+
+        // Generate signed URLs for the filtered files
+        const images = await Promise.all(
+            todayFiles.map(async file => {
+                const [url] = await file.getSignedUrl({
+                    action: 'read',
+                    expires: '03-17-2025', // Adjust the expiration date as needed
+                });
+                return {
+                    imageUrl: url,
+                    metadata: file.metadata,
+                };
+            })
+        );
+
+        res.status(200).json(images);
+    } catch (error) {
+        console.error('Error retrieving today\'s images:', error);
+        res.status(500).json({ message: 'Error retrieving today\'s images' });
+    }
+};
+
+// Get image processing result
+exports.getTodaySum = async (req, res) => {
+    try {
+        const today = new Date();
+        const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+
+        // Firestore expects timestamps for comparison
+        const snapshot = await db
+            .collection('sum-person')
+            .where('timeAdded', '>=', startOfDay)
+            .where('timeAdded', '<', endOfDay)
+            .orderBy('timeAdded', 'desc')
+            .get();
+
+        if (snapshot.empty) {
+            return res.status(404).send('No data found.');
+        }
+
+        const numbers = snapshot.docs.map(doc => ({
+            id: doc.id,
+            sum: doc.data().sum,
+            timeAdded: doc.data().timeAdded,
+        }));
+
+        res.status(200).json(numbers); // Return all today's data
+    } catch (error) {
+        console.error('Error reading from Firestore:', error);
+        res.status(500).send('Error reading from Firestore.');
+    }
+};
