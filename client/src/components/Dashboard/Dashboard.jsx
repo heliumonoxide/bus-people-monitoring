@@ -39,7 +39,7 @@ const Dashboard = () => {
           <h2 className="text-blue-900 text-xl font-bold mb-4 mx-6">Log Table</h2>
           <div className="flex flex-col bg-white gap-10 rounded-lg shadow-lg p-6 mx-6">
             <LogTableBus />
-            {/* <LogTablePeople /> */}
+            <LogTablePeople />
           </div>
         </div>
       </main>
