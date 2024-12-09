@@ -47,7 +47,7 @@ const ImageViewerBus = () => {
           <img
             src={imageUrl}
             alt="Newest uploaded"
-            className="w-full h-64 object-cover rounded-lg transition-all duration-300 ease-in-out hover:scale-105"
+            className="w-full rotate-180 h-64 object-cover rounded-lg transition-all duration-300 ease-in-out hover:scale-105"
           />
         ) : (
           <p className="text-center">Loading...</p>
