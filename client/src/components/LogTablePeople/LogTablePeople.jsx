@@ -20,7 +20,7 @@ const LogTablePeople = () => {
                     return doc.sum
                 })
                 
-                console.log(newSum);
+                // console.log(newSum);
                 // Format the data, converting timestamps to local time
                 const utcDate = new Date(data.metadata.timeCreated); // Convert Firestore timestamp
                 const localDate = new Date(utcDate.setHours(utcDate.getHours())); // Adjust to UTC+7
@@ -31,7 +31,6 @@ const LogTablePeople = () => {
                     peopleCount: newSum,
                     createdAt: utcDate // Store original UTC timestamp for sorting
                 };
-
 
                 // Sort the data based on the `createdAt` field (newest first)
                 // const sortedData = formattedData.sort((a, b) => b.createdAt - a.createdAt);
