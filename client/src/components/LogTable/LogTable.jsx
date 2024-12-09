@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const LogTableBus = () => {
+const LogTable = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
 
@@ -83,4 +83,4 @@ const LogTableBus = () => {
   );
 };
 
-export default LogTableBus;
+export default LogTable;
