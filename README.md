@@ -1,4 +1,4 @@
-# Smart IoT Monitoring and AI System
+# Web Integrated Bus and Crowd Monitoring using YoloV3 inference Device
 
 ![Banner Github Bus People](https://github.com/user-attachments/assets/7cd3566f-b1e1-4934-9eda-2e4f3cde8a8b)
 
